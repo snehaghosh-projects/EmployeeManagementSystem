@@ -1,0 +1,19 @@
+# Maven
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/settings.json
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Sensitive config — never commit credentials
+src/main/java/com/ems/util/DBConnection.java
+src/main/java/com/ems/util/EmailUtil.java
