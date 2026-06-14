@@ -1,85 +1,241 @@
-Employee Management System
+# Employee Management System
 
-Overview
-The Employee Management System is a web-based application developed using Advanced Java technologies to streamline employee data management within an organization. The system provides separate interfaces for administrators and employees, enabling secure access to employee records, profile management, and payslip generation.
+## Overview
 
-This project was developed as part of my learning and practical implementation of Java Web Development concepts including Servlets, JSP, JDBC, session management, email integration, and database connectivity.
+The Employee Management System is a web-based application developed using Advanced Java technologies to streamline employee data management within an organization. The system provides separate interfaces for administrators and employees, enabling secure access to employee records, profile management, announcements, and email notifications.
 
-Tech Stack
-| Layer        | Technology                          |
-|--------------|-------------------------------------|
-| Frontend     | JSP, JSTL, HTML5, CSS3              |
-| Backend      | Java Servlets (Jakarta EE 10)       |
-| Database     | MySQL 8 via JDBC                    |
-| Email        | JavaMail (Jakarta Mail 2)           |
-| Build        | Maven 3                             |
-| Server       | Apache Tomcat 11                    |
+This project was developed to gain practical experience in Java Web Development concepts, including Servlets, JSP, JDBC, session management, authentication, email integration, and cloud deployment.
 
-Project Structure
+---
+
+## Features
+
+### Authentication & Security
+
+* Role-based login (Admin / Employee)
+* Secure password hashing using SHA-256
+* First-time login password change enforcement
+* Session management with timeout handling
+* Protected role-based access control
+
+### Employee Management
+
+* Add new employees
+* View employee records
+* Update employee information
+* Delete employee records
+* Search employees
+* Employee profile management
+
+### Employee Features
+
+* View personal profile
+* Change password
+* Upload profile picture
+* Remove profile picture
+* Dark mode support
+
+### Announcement System
+
+Administrators can send announcements to:
+
+* All employees
+* Employees from the same department
+* Custom employee groups
+* Selected employee ranges
+
+### Email Notifications
+
+Automatic email notifications for:
+
+* Employee account creation
+* Temporary password generation
+* Employee information updates
+* Employee account deletion
+
+### Additional Features
+
+* Pagination support
+* Sorting by employee attributes
+* Responsive user interface
+* Maven-based project structure
+* Cloud database integration
+
+---
+
+## Tech Stack
+
+| Layer               | Technology                         |
+| ------------------- | ---------------------------------- |
+| Frontend            | JSP, JSTL, HTML5, CSS3, JavaScript |
+| Backend             | Java Servlets (Jakarta EE)         |
+| Database            | MySQL 8, JDBC                      |
+| Email Service       | Brevo Email API                    |
+| Build Tool          | Maven                              |
+| Application Server  | Apache Tomcat                      |
+| Cloud Database      | Aiven MySQL                        |
+| Deployment Platform | Render                             |
+
+---
+
+## Project Structure
+
+```text
 EmployeeMS/
-├── database/
-│   └── schema.sql                      
-├── src/main/
-│   ├── java/com/ems/
-│   │   ├── dao/        EmployeeDAO, UserDAO, DepartmentDAO
-│   │   ├── model/      Employee, User
-│   │   ├── servlet/    LoginServlet, EmployeeServlet, ProfileServlet,
-│   │   │               PayslipServlet, LogoutServlet
-│   │   └── util/       DBConnection, EmailUtil
-│   └── webapp/
-│       ├── admin/      dashboard.jsp, employee-form.jsp, employee-view.jsp
-│       ├── employee/   profile.jsp
-│       ├── css/        style.css
-│       ├── login.jsp
-│       ├── payslip.jsp
-│       ├── error.jsp
-│       ├── index.jsp
-│       └── WEB-INF/    web.xml
-└── pom.xml
+│
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   ├── resources/
+│   │   └── webapp/
+│   │
+│   └── test/
+│
+├── pom.xml
+├── README.md
+└── target/
+```
 
-Prerequisites
-- Java JDK 11+  (`java -version`)
-- Maven 3.8+    (`mvn -version`)
-- MySQL 8        (running via MySQL Workbench)
-- Apache Tomcat 11 (downloaded and extracted)
-- VS Code + Extension Pack for Java + Tomcat for Java extension
+---
 
-Database Setup
-1. Open **MySQL Workbench**
-2. Connect to `localhost:3306` with your root credentials
-3. Open `database/schema.sql` and run it 
-4. Verify `employee_management` database with tables
+## Prerequisites
 
-Build the WAR
+Before running the project, ensure the following are installed:
+
+* Java JDK 11 or later
+* Maven 3.8+
+* MySQL 8+
+* Apache Tomcat
+* VS Code (or IntelliJ IDEA/Eclipse)
+
+Verify installation:
+
+```bash
+java -version
+mvn -version
+```
+
+---
+
+## Database Setup
+
+1. Open MySQL Workbench.
+2. Create a database named:
+
+```sql
+CREATE DATABASE employee_management;
+```
+
+3. Import or execute the required SQL schema.
+4. Update database credentials in the application's database configuration file.
+
+Example:
+
+```java
+jdbc:mysql://localhost:3306/employee_management
+```
+
+---
+
+## Build the Project
+
+Clone the repository and build using Maven:
+
+```bash
+git clone <repository-url>
 cd EmployeeMS
 mvn clean package
-Output: `target/EmployeeMS.war`
+```
 
-Deploy on Tomcat 11
-cp target/EmployeeMS.war /path/to/tomcat/webapps/
+Generated WAR file:
 
-Start Tomcat
-/path/to/tomcat/bin/startup.sh       # Linux/Mac
-/path/to/tomcat/bin/startup.bat      # Windows
-Visit: http://localhost:8080/EmployeeMS
+```text
+target/EmployeeMS.war
+```
 
-Test Logins
-| Role     | Username  | Password  | Redirects to      |
-|----------|-----------|-----------|-------------------|
-| Admin    | admin     | admin123  | Admin Dashboard   |
-| Employee | john.doe  | emp123    | Employee Profile  |
+---
 
+## Deployment
 
-Features of this project
-Role-based login (Admin / Employee)
-Session management with timeout
-Add / Edit / Delete / View employees (CRUD)
-Pagination (10 per page, configurable)
-Sorting by Name, Department, Salary, Designation
-Search employees
-Payslip generation with breakdown
-Send payslip notification via email
-Welcome email on new employee creation
-Packaged as WAR for Tomcat deployment
+### Deploy on Apache Tomcat
 
+Copy the generated WAR file into Tomcat's `webapps` directory:
 
+```text
+tomcat/webapps/
+```
+
+Start Tomcat:
+
+**Windows**
+
+```bash
+startup.bat
+```
+
+**Linux / macOS**
+
+```bash
+./startup.sh
+```
+
+Access the application:
+
+```text
+http://localhost:8080/EmployeeMS
+```
+
+---
+
+## Cloud Deployment
+
+The application is deployed using:
+
+* Render (Application Hosting)
+* Aiven MySQL (Managed Database)
+
+Deployment workflow:
+
+1. Build Maven WAR package
+2. Push code to GitHub
+3. Connect repository to Render
+4. Configure environment variables
+5. Connect Aiven MySQL database
+6. Deploy application
+
+---
+
+## Learning Outcomes
+
+Through this project, I gained hands-on experience in:
+
+* Java Web Application Development
+* JSP and Servlet Architecture
+* JDBC Database Connectivity
+* Authentication & Authorization
+* Session Management
+* Email API Integration
+* Maven Build Automation
+* Cloud Deployment
+* MVC Design Pattern
+
+---
+
+## Future Enhancements
+
+* Attendance Management System
+* Leave Management Module
+* Payroll Management
+* Employee Performance Tracking
+* Dashboard Analytics
+* Two-Factor Authentication (2FA)
+
+---
+
+## Author
+
+**Sneha Ghosh**
+
+Bachelor of Computer Applications (BCA)
+
+Advanced Java Project
